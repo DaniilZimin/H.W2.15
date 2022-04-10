@@ -22,7 +22,7 @@ public class Main {
         System.out.println(integerList.set(7, 8));
         System.out.println(integerList.remove(1));
         System.out.println(integerList.removeInd(9));
-        System.out.println(integerList.contains(5));
+        System.out.println(integerList.contains(56));
         System.out.println(integerList.indexOf(3));
         System.out.println(integerList.lastIndexOf(7));
         System.out.println(integerList.get(4));
@@ -32,5 +32,6 @@ public class Main {
         integerList.clear();
         System.out.println(Arrays.toString(integerList.toArray()));
         System.out.println(integerList.equals(integerList1));
+
     }
 }

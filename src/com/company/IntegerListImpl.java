@@ -71,7 +71,7 @@ public class IntegerListImpl implements IntegerList {
     @Override
     public boolean contains(int item) {
         int[] i = Arrays.copyOf(ints, size);
-        sortInsertion(i);
+        quickSort(i, 0, i.length - 1);
         return containsBin(i, item);
     }
 
@@ -132,7 +132,7 @@ public class IntegerListImpl implements IntegerList {
 
     @Override
     public void clear() {
-        ints = new int[10];
+        ints = new int[DEFAULT_CAPACITY];
     }
 
     @Override
@@ -140,16 +140,35 @@ public class IntegerListImpl implements IntegerList {
         return Arrays.copyOf(ints, size);
     }
 
-    private void sortInsertion(int[] arr) {
-        for (int i = 1; i < arr.length; i++) {
-            int temp = arr[i];
-            int j = i;
-            while (j > 0 && arr[j - 1] >= temp) {
-                arr[j] = arr[j - 1];
-                j--;
-            }
-            arr[j] = temp;
+    public static void quickSort(int[] arr, int begin, int end) {
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
+
+            quickSort(arr, begin, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, end);
         }
+    }
+
+    private static int partition(int[] arr, int begin, int end) {
+        int pivot = arr[end];
+        int i = (begin - 1);
+
+        for (int j = begin; j < end; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+
+                swapElements(arr, i, j);
+            }
+        }
+
+        swapElements(arr, i + 1, end);
+        return i + 1;
+    }
+
+    private static void swapElements(int[] arr, int left, int right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
     }
 
     private boolean containsBin(int[] arr, int element) {
